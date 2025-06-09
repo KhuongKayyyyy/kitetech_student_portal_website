@@ -1,0 +1,14 @@
+/* Ngăn màu xanh nhạt đè lên phần header */
+.rbc-time-header .rbc-today {
+  background-color: transparent !important;
+}
+
+/* Giữ lại highlight ở phần dưới */
+.rbc-time-content .rbc-today {
+  background-color: rgba(0, 123, 255, 0.08); /* Tuỳ chỉnh độ nhạt */
+}
+.rbc-month-row {
+  display: inline-table !important;
+  flex: 0 0 0 !important;
+  min-height: 150px !important;
+}
