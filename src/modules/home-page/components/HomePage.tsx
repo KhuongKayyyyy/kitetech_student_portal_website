@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Search, Bell, Globe } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, Bell } from "lucide-react";
 
 export const Slider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,36 +57,7 @@ export const Slider = () => {
   }, [isAutoPlaying]);
 
   return (
-    <div className="w-full bg-gray-50 min-h-screen">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo và Title */}
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-red-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">TDT</span>
-              </div>
-              <h1 className="text-2xl font-bold text-red-600 tracking-wide">
-                CỔNG THÔNG TIN SINH VIÊN
-              </h1>
-            </div>
-
-            {/* User Info */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-sm">
-                <Globe className="w-4 h-4 text-blue-600" />
-                <span className="text-gray-600">Đăng xuất</span>
-              </div>
-              <div className="text-sm text-white bg-red-500 px-3 py-1 rounded">
-                Nguyễn Đạt Khương (52100979)
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Carousel */}
+    <div className="w-full bg-gray-50 min-h-screen p-5">
       <div className="relative">
         <div
           className="relative h-96 lg:h-[500px] overflow-hidden group"

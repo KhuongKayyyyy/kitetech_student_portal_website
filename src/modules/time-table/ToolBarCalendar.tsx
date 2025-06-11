@@ -1,18 +1,17 @@
+"use client";
+import React from "react";
+import { ToolbarProps, View } from "react-big-calendar";
 import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import React from "react";
-import { ToolbarProps, View } from "react-big-calendar";
-interface ToolBarCalendarProps {
-  // Define any props if needed
+
+interface Props {
   props: ToolbarProps<
     {
       title: string;
@@ -22,69 +21,60 @@ interface ToolBarCalendarProps {
     },
     object
   >;
-  setCurentView: React.Dispatch<React.SetStateAction<View>>;
+  setCurentView: (view: View) => void;
 }
 
-export const ToolBarCalendar = ({
-  setCurentView,
-  props,
-}: ToolBarCalendarProps) => {
-  const handleViewChange = (view: View) => {
-    props.onView(view);
-    setCurentView(view);
-  };
-  const handleNext = () => {
-    props.onNavigate("NEXT");
-  };
-  const handleToday = () => {
-    props.onNavigate("TODAY");
-  };
-  const handlePrevious = () => {
-    props.onNavigate("PREV");
+export const ToolBarCalendar = ({ props, setCurentView }: Props) => {
+  const handleNavigate = (action: "PREV" | "NEXT" | "TODAY") => {
+    props.onNavigate(action);
   };
 
   return (
-    <div className="flex items-center justify-between p-4  shadow-md">
+    <div className="flex items-center justify-between px-4 py-2  rounded-md">
+      {/* Trái: Nút điều hướng */}
       <div></div>
-      <div className="flex flex-col gap-2 items-center">
-        <div className="flex items-center justify-center gap-1">
-          <Button onClick={handleNext}>
-            {" "}
-            <ChevronLeft className="text-black dark:text-white" />
-          </Button>
-          <Button onClick={handleToday}>Today</Button>
-          <Button onClick={handlePrevious}>
-            {" "}
-            <ChevronRight className="text-black dark:text-white" />
-          </Button>
-        </div>
-        <div>
-          <Select
-            value={props.view}
-            onValueChange={(value) => handleViewChange(value as View)}
+      <div className="flex flex-col items-center justify-center space-y-2">
+        <div className="flex items-center gap-4 ">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => handleNavigate("PREV")}
           >
-            <SelectTrigger className="w-[220px] h-[40px] text-[20px">
-              <SelectValue
-                className="text-[20px]"
-                placeholder="Chọn chế độ xem"
-              />
-            </SelectTrigger>
-            <SelectContent className="text-[20px] ">
-              <SelectGroup>
-                <SelectLabel className="text-[20px]">Chế độ xem</SelectLabel>
-                <SelectItem className="text-[20px]" value="week">
-                  Week
-                </SelectItem>
-                <SelectItem className="text-[20px]" value="day">
-                  Day
-                </SelectItem>
-                <SelectItem className="text-[20px]" value="month">
-                  Month
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+            <ChevronLeft size={20} />
+          </Button>
+          <Button
+            className="w-fit p-4"
+            variant="outline"
+            size="icon"
+            onClick={() => handleNavigate("TODAY")}
+          >
+            Hôm nay
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => handleNavigate("NEXT")}
+          >
+            <ChevronRight size={20} />
+          </Button>
         </div>
+
+        <Select
+          value={props.view as View}
+          onValueChange={(value) => {
+            props.onView(value as View); // Cập nhật cho Calendar
+            setCurentView(value as View); // Đồng bộ với state cha (TimeTable)
+          }}
+        >
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Chọn lịch" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="day">Ngày</SelectItem>
+            <SelectItem value="week">Tuần</SelectItem>
+            <SelectItem value="month">Tháng</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import React from "react";
 
 function TimeTablePage() {
   return (
-    <div className="p-5">
+    <div className="p-5 w-full">
       <TimeTable />
     </div>
   );
